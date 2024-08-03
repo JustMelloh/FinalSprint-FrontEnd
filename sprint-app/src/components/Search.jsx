@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Head from './partials/Head';
 import Nav from './partials/Nav';
 import Foot from './partials/Foot';
 
 const Search = ({ onSearch }) => {
     const [name, setName] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSearch(name); // Call the passed onSearch function
+        onSearch(name);
+        navigate('/results');
     };
 
     return (
@@ -34,4 +37,5 @@ const Search = ({ onSearch }) => {
 };
 
 export default Search;
+
 
