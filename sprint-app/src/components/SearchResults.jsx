@@ -54,8 +54,6 @@ SearchResults.propTypes = {
     })
 };
 
-SearchResults.defaultProps = {
-    results: null
-};
+SearchResults.defaultProps = {};
 
 export default SearchResults;

@@ -9,9 +9,10 @@ const App = () => {
   const [results, setResults] = useState(null);
 
   const handleSearch = async (name) => {
+    console.log(`Searching for villager with name: ${name}`);
     try {
       const response = await axios.get(
-        `http://localhost:8080/villagers/search${name}`
+        `http://localhost:8080/villager/search/${name}`
       );
       setResults(response.data);
     } catch (error) {
