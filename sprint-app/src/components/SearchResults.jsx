@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Head from './partials/Head';
 import Nav from './partials/Nav';
 import Foot from './partials/Foot';
@@ -15,18 +16,22 @@ const SearchResults = ({ results }) => {
                         <p>{results.message}</p>
                     ) : (
                         <>
-                            <h2>Name: {results.name}</h2>
-                            <h2>Birthday: {results.birthday}</h2>
-                            {Object.keys(results.gifts).map(category => (
-                                <div key={category}>
-                                    <h3>{category.toUpperCase()}</h3>
-                                    <ul>
-                                        {results.gifts[category].map((gift, index) => (
-                                            <li key={index}>{gift}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
+                            <h2>Name: {results.name || 'N/A'}</h2>
+                            <h2>Birthday: {results.birthday || 'N/A'}</h2>
+                            {results.gifts && Object.keys(results.gifts).length > 0 ? (
+                                Object.keys(results.gifts).map(category => (
+                                    <div key={category}>
+                                        <h3>{category.toUpperCase()}</h3>
+                                        <ul>
+                                            {results.gifts[category].map((gift, index) => (
+                                                <li key={index}>{gift}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No gifts found.</p>
+                            )}
                         </>
                     )
                 ) : (
@@ -38,6 +43,19 @@ const SearchResults = ({ results }) => {
     );
 };
 
+SearchResults.propTypes = {
+    results: PropTypes.shape({
+        message: PropTypes.string,
+        name: PropTypes.string,
+        birthday: PropTypes.string,
+        gifts: PropTypes.objectOf(
+            PropTypes.arrayOf(PropTypes.string)
+        )
+    })
+};
+
+SearchResults.defaultProps = {
+    results: null
+};
+
 export default SearchResults;
-
-
