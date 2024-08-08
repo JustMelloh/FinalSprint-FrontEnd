@@ -32,6 +32,36 @@ const SearchResults = ({ results }) => {
                             ) : (
                                 <p>No gifts found.</p>
                             )}
+                            {results.likes && results.likes.length > 0 && (
+                                <div>
+                                    <h3>Likes</h3>
+                                    <ul>
+                                        {results.likes.map((like, index) => (
+                                            <li key={index}>{like}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                            {results.dislikes && results.dislikes.length > 0 && (
+                                <div>
+                                    <h3>Dislikes</h3>
+                                    <ul>
+                                        {results.dislikes.map((dislike, index) => (
+                                            <li key={index}>{dislike}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                            {results.loves && results.loves.length > 0 && (
+                                <div>
+                                    <h3>Loves</h3>
+                                    <ul>
+                                        {results.loves.map((love, index) => (
+                                            <li key={index}>{love}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </>
                     )
                 ) : (
@@ -50,7 +80,10 @@ SearchResults.propTypes = {
         birthday: PropTypes.string,
         gifts: PropTypes.objectOf(
             PropTypes.arrayOf(PropTypes.string)
-        )
+        ),
+        likes: PropTypes.arrayOf(PropTypes.string),
+        dislikes: PropTypes.arrayOf(PropTypes.string),
+        loves: PropTypes.arrayOf(PropTypes.string)
     })
 };
 
