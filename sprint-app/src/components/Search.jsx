@@ -12,9 +12,11 @@ const Search = ({ onSearch }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('localhost:8080/villagers/search/{name}', { name });
-            onSearch(response.data);
-            navigate('/results');
+          const response = await axios.get(
+            `http://localhost:8080/villager/search/${name}`
+          );
+          await onSearch(response.data);
+          navigate("/results");
         } catch (error) {
             console.error('Error during search:', error);
             
