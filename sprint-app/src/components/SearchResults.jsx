@@ -12,31 +12,61 @@ const SearchResults = ({ results }) => {
             <div>
                 <h1>Search Results</h1>
                 {results ? (
-                    results.message ? (
-                        <p>{results.message}</p>
-                    ) : (
-                        <>
-                            <h2>Name: {results.name || 'N/A'}</h2>
-                            <h2>Birthday: {results.birthday || 'N/A'}</h2>
-                            {results.gifts && Object.keys(results.gifts).length > 0 ? (
-                                Object.keys(results.gifts).map(category => (
-                                    <div key={category}>
-                                        <h3>{category.toUpperCase()}</h3>
-                                        <ul>
-                                            {results.gifts[category].map((gift, index) => (
-                                                <li key={index}>{gift}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No gifts found.</p>
-                            )}
-                        </>
-                    )
-                ) : (
-                    <p>No search results found.</p>
-                )}
+    results.message ? (
+        <p>{results.message}</p>
+    ) : (
+        <>
+            <h2>Name: {results.name || 'N/A'}</h2>
+            <h2>Birthday: {results.birthday || 'N/A'}</h2>
+            {results.gifts && Object.keys(results.gifts).length > 0 ? (
+                Object.keys(results.gifts).map(category => (
+                    <div key={category}>
+                        <h3>{category.toUpperCase()}</h3>
+                        <ul>
+                            {results.gifts[category].map((gift, index) => (
+                                <li key={index}>{typeof gift === 'object' ? gift.name : gift}</li>
+                            ))}
+                        </ul>
+                    </div>
+                ))
+            ) : (
+                <p>No gifts found.</p>
+            )}
+            {results.likes && results.likes.length > 0 && (
+                <div>
+                    <h3>Likes</h3>
+                    <ul>
+                        {results.likes.map((like, index) => (
+                            <li key={index}>{typeof like === 'object' ? like.name : like}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+            {results.dislikes && results.dislikes.length > 0 && (
+                <div>
+                    <h3>Dislikes</h3>
+                    <ul>
+                        {results.dislikes.map((dislike, index) => (
+                            <li key={index}>{typeof dislike === 'object' ? dislike.name : dislike}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+            {results.loves && results.loves.length > 0 && (
+                <div>
+                    <h3>Loves</h3>
+                    <ul>
+                        {results.loves.map((love, index) => (
+                            <li key={index}>{typeof love === 'object' ? love.name : love}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </>
+    )
+) : (
+    <p>No search results found.</p>
+)}
             </div>
             <Foot />
         </div>
@@ -50,12 +80,13 @@ SearchResults.propTypes = {
         birthday: PropTypes.string,
         gifts: PropTypes.objectOf(
             PropTypes.arrayOf(PropTypes.string)
-        )
+        ),
+        likes: PropTypes.arrayOf(PropTypes.string),
+        dislikes: PropTypes.arrayOf(PropTypes.string),
+        loves: PropTypes.arrayOf(PropTypes.string)
     })
 };
 
-SearchResults.defaultProps = {
-    results: null
-};
+SearchResults.defaultProps = {};
 
 export default SearchResults;
