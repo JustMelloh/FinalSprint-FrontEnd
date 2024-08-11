@@ -12,7 +12,7 @@ const App = () => {
     console.log(`Searching for villager with name: ${name}`);
     try {
       const response = await axios.get(
-        `http://localhost:8080/villager/search/${name}`
+        `http://ec2-54-158-38-64.compute-1.amazonaws.com:8080/villager/search/${name}`
       );
       setResults(response.data);
     } catch (error) {
